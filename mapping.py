@@ -12,7 +12,7 @@ fg = folium.FeatureGroup(name = 'My Map') #keeps all these features as one group
 
 def elevcolor(elev): #color codes markers
     'takes an elevation (int) and returns a color (str)'
-    if elev <= 2000:
+    if elev <= 1500:
         return 'green'
     elif elev <=3000:
         return 'orange'
@@ -20,8 +20,11 @@ def elevcolor(elev): #color codes markers
         return 'red'
 
 for lt, ln, nm, el in zip(lat, lon, name, elev):
-    fg.add_child(folium.Marker(location = [lt, ln], popup = nm + '\n' + str(el)+ 'm', icon = folium.Icon(color= elevcolor(el))))
+    fg.add_child(folium.CircleMarker(radius = 6, location = [lt, ln], popup = nm + '\n' + str(el)+ 'm', color= elevcolor(el), fill = True, fill_color = elevcolor(el), fill_opacity = .7)) #Circle markers
+    #fg.add_child(folium.Marker(location = [lt, ln], popup = nm + '\n' + str(el)+ 'm', icon = folium.Icon(color= elevcolor(el)))) regular markers
+
+
 
 
 map.add_child(fg) # adds all features as group
-map.save('Map1.html')
+map.save('VolcanoMap.html')
